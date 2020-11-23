@@ -1,8 +1,91 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+body{
+  background-color:rgb(184, 241, 245);
+  
+
+}
+header{
+  text-align:center;
+  font-size:2.5em;
+}
+form{
+ max-width:500px;
+ margin:6% auto;
+ border:2px solid black;
+ padding:2rem;
+}
+form label{
+  display:block;
+  font-size:1.5em;
+}
+form input[type = text],input[type = password],input[type = email]{
+  display:block;
+  width:100%;
+  margin-bottom:15px;
+  padding:10px;
+  font-size:1.5em;
+  border-radius:5px;
+  
+}
+form input[checkbox]{
+  padding:10px;
+}
+input[type = submit]{
+  display:block;
+  position:relative;
+  width:50%;
+  left:125px;
+  padding:10px;
+  font-size:1.5em;
+}
+input[type = checkbox]{
+  width:30px;
+  height:30px;
+}
+a{
+  text-decoration: none;
+  font-size:.8em;
+}
+a label{
+  cursor:pointer;
+}
+#descript-input{
+width:100%;
+resize: none;
 }
 
-a {
-  color: #00B7FF;
+#post{
+  text-align: center;
+  margin:6% auto;
+}
+#image{
+ width:25%;
+}
+
+#validationGuide{
+  text-align:center;
+  margin-top:5%;
+  color:red;
+  font-size:2em;
+}
+#grid-container{
+  height:100vh;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  margin-left:5%;
+
+}
+.grid-pic img{
+  width:70%;
+
+}
+.fade{
+ animation: fadeOut 1s;
+}
+@keyframes fadeOut{
+  from {
+      opacity:1;
+  }
+  to{
+      opacity:0;
+  }
 }
