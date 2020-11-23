@@ -10,9 +10,10 @@ Please follow the instructions below and fill in the information requested when 
 
 |               | Information   |
 |:-------------:|:-------------:|
-| Student Name  | name-here     |
-| Student ID    | id-here       |
-| Student Email | email-here    |
+| Student Name  | Jacky Qiu Xu   |
+| Student ID    |  920068055      |
+| Student Email | jqiuxu1@mail.sfsu.edu  |	
+
 
 
 
@@ -23,5 +24,5 @@ Please follow the instructions below and fill in the information requested when 
 2. steps here
 
 ## Run Instructions
-1. steps here
-2. steps here 
+1. Npm start
+2. 
