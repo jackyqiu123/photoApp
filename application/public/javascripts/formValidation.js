@@ -102,3 +102,4 @@ function passwordValidation() {
 
 userNameValidation();
 passwordValidation();
+

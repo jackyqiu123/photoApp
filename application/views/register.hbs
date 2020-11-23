@@ -1,0 +1,32 @@
+<header>
+    <h1>Register</h1>
+</header>
+<div id="validationGuide">
+    <p></p>
+</div>
+<form action="submit" onsubmit="return validSubmit()">
+    <label for="username">Create User Name:</label>
+    <input id="username" type="text" name="username" required>
+
+
+    <label for="password">Create Password:</label>
+    <input id="password" type="text" name="create-password" required>
+
+
+    <label for="confirmPassword">Re-enter Password:</label>
+    <input id="confirmPassword" type="text" name="confirmPassword" required>
+
+    <label for="email">Email:</label>
+    <input id="email" type="email" name="email" required>
+
+
+    <label for="13-plus">User Must Be 13 Years or Older</label>
+    <input type="checkbox" name="13-plus" required>
+
+
+    <a href="#"><label for="terms-conditions">Users must accept TOS and Privacy rules </label></a>
+    <input type="checkbox" name="terms-conditions" required>
+    <br />
+
+    <input type="submit" value="Register" onsubmit="return false">
+</form>
