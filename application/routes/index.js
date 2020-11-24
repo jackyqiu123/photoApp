@@ -1,13 +1,17 @@
 var express = require('express');
 var router = express.Router();
+const db = require('../config/database');
 
 /* GET home page. */
+router.get('/home', function (req, res, next) {
+  res.render("home");
+});
 router.get('/', function (req, res, next) {
-  res.render("index");
+  res.render("register");
 });
 
-router.get("/home", (req, res, next) => {
-  res.render("home", { title: "home" });
+router.get("/homeGallery", (req, res, next) => {
+  res.render("homeGallery", { title: "home Gallery" });
 });
 
 router.get("/imagePost", (req, res, next) => {
@@ -22,5 +26,12 @@ router.get("/register", (req, res, next) => {
 });
 router.get("/login", (req, res, next) => {
   res.render("login", { title: "login" });
+});
+
+router.get("/getAllUsers", (req, res, next) => {
+  db.query('SELECT * FROM users', (err, results, fields) => {
+    console.log(results);
+    res.send(results);
+  });
 });
 module.exports = router;

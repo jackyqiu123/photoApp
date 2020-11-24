@@ -89,3 +89,34 @@ resize: none;
       opacity:0;
   }
 }
+
+.signInOption{
+  display: flex;
+  justify-content: center;
+}
+.signInOption a{
+font-size:1.5em;
+margin:15px;
+
+
+
+}
+.signInOption p{
+font-size: 1.2em;
+
+}
+#searchBar{
+  text-align: center;
+}
+#searchText{
+  width:50%;
+  height:50px;
+  font-size:1.9em;
+}
+#searchBtn{
+  position:relative;
+  width:15%;
+  height:58px;
+  margin-bottom: 100px;
+  bottom:5px;
+}

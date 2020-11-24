@@ -4,7 +4,7 @@
 <div id="validationGuide">
     <p></p>
 </div>
-<form action="submit" onsubmit="return validSubmit()">
+<form action="users/register" onsubmit="return validSubmit()" enctype="x-www-form-urlencoded" method="POST">
     <label for="username">Create User Name:</label>
     <input id="username" type="text" name="username" required>
 
@@ -29,4 +29,11 @@
     <br />
 
     <input type="submit" value="Register" onsubmit="return false">
+    <br>
+    <div class='signInOption'>
+        <p>Already have an account?</p>
+        <a href="/login">Login</a>
+    </div>
+
+
 </form>

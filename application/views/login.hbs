@@ -2,7 +2,7 @@
     <h1>Login</h1>
 </header>
 
-<form action="submit">
+<form action="submit" enctype="x-www-form-urlencoded">
     <label for="username">User Name:</label>
     <input type="text" name="username">
 
@@ -10,4 +10,9 @@
     <input type="password" name="password">
 
     <input type="submit" value="Login">
+    <br>
+    <div class='signInOption'>
+        <p>New user?</p>
+        <a href="/register">Register</a>
+    </div>
 </form>
