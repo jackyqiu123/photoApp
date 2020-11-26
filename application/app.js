@@ -42,4 +42,7 @@ app.use((req, res, next) => {
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+app.use((err, req, res, next) => {
+    res.render('error', { err_message: err });
+});
 module.exports = app;

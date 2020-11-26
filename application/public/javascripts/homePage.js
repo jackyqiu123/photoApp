@@ -1,3 +1,5 @@
+
+
 let homePics = document.getElementById("grid-container");
 
 let count = document.getElementById("count");

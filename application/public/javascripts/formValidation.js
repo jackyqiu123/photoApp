@@ -1,3 +1,5 @@
+
+
 var isError, isError2;
 const errorMessage1 = "First Character must be an alphabet character.";
 const errorMessage2 = "User Name must be at least 3 alphanumerical characters.";
