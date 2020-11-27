@@ -105,18 +105,37 @@ margin:15px;
 font-size: 1.2em;
 
 }
-#searchBar{
-  text-align: center;
+#nav{
+  /* text-align: center; */
+  display:flex;
+  justify-content:space-around;
+}
+#rightNav{
+  display:flex;
+
+}
+#search{
+  display:flex;
+  justify-content: center;
+  margin-top:20px;
+
 }
 #searchText{
-  width:50%;
-  height:50px;
-  font-size:1.9em;
+  width:100%;
+  height:20px;
+  font-size:1.5em;
 }
 #searchBtn{
-  position:relative;
-  width:15%;
-  height:58px;
-  margin-bottom: 100px;
-  bottom:5px;
+  width:20%;
+  height:27px;
+}
+#logOut{
+  margin-top:23px;
+  margin-left:20px;
+  font-size: 1.5em;
+  white-space: nowrap;
+}
+#user{
+  font-size:1.5em;
+  white-space:nowrap;
 }
