@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var db = require("../config/database");
-const { errorPrint } = require('../helpers/debug/debugprinters');
+const { errorPrint, successPrint } = require('../helpers/debug/debugprinters');
 const UserError = require('../helpers/error/UserError');
 var bcrypt = require("bcrypt");
 
@@ -22,38 +22,11 @@ router.post('/register', (req, res, next) => {
   else if (password == "" || username == "" || email == "" || confirmPw == "") {
     res.redirect('/register');
   }
-  // else {
-  //   db.execute("SELECT * FROM users WHERE username = ?", [username], (err, results, fields) => {
-  //     var count = 0;
-  //     if (results && results.length == 0) { // nonexistent username
-  //       count++;
-  //     }
-  //     db.execute("SELECT * FROM users WHERE email = ?", [email], (err, results, fields) => {
-  //       if (results && results.length == 0) { // nonexistent email
-  //         count++;
-  //       }
-  //       if (count == 2) { // if count = 2 means that both username and email is not taken 
-  //         bcrypt.hash(password, 15, (err, hash) => {
-  //           let insertNewUser = "INSERT INTO users (username, email, password, created) VALUES(?, ?, ?, now());";
-  //           db.execute(insertNewUser, [username, email, hash]);
-  //         })
-  //         res.redirect("/login");
-  //       }
-  //       else { // if either username and email is taken, then registration is not going to be sucessful
-  //         res.redirect('/register');
-  //         console.log("username or email is already taken");
-  //       }
-  //     })
-
-  //   })
-
-  // }
   else {
     db.execute("SELECT * FROM users WHERE username=?", [username])
       .then(([results, fields]) => {
         if (results && results.length == 0) {
-          // return db.execute("SELECT * FROM users WHERE email=?", [email]);
-          console.log("hello");
+          return db.execute("SELECT * FROM users WHERE email=?", [email]);
         }
         else {
           throw new UserError(
@@ -65,25 +38,16 @@ router.post('/register', (req, res, next) => {
       })
       .then(([results, fields]) => {
         if (results && results.length == 0) {
-          let insertNewUser = "INSERT INTO users (username, email, password, created) VALUES(?, ?, ?, now());";
-          return db.execute(insertNewUser, [username, email, password]);
+          bcrypt.hash(password, 15, (err, hash) => {
+            let insertNewUser = "INSERT INTO users (username, email, password, created) VALUES(?, ?, ?, now());";
+            db.execute(insertNewUser, [username, email, hash]);
+          })
+          successPrint("user was created");
+          res.redirect("/login");
         }
         else {
           throw new UserError(
             "Registration Failed: Email is already taken",
-            "/register",
-            200
-          );
-        }
-      })
-      .then(([results, fields]) => {
-        if (results && results.affectedRows) {
-          successPrint("user was created");
-          res.redirect('/login');
-        }
-        else {
-          throw new UserError(
-            "Server Error, user could not be created",
             "/register",
             200
           );
@@ -106,32 +70,56 @@ router.post('/register', (req, res, next) => {
 router.post('/login', (req, res, next) => {
   let username = req.body.username;
   let password = req.body.password;
+
   if (username == "" || password == "") {
     res.redirect('/login');
   }
   else {
-    db.execute("SELECT * FROM users WHERE username = ?", [username], (err, results, fields) => {
-      let userId = results[0].id;
-      if (results && results.length > 0) { // check if there's a matched username in the database
-        let hashedPw = results[0].password;
-        bcrypt.compare(password, hashedPw, (matched) => {
-          if (matched) {
-            console.log(`${username} has successfully logged in`);
-            req.sessions.username = username;
-            req.sessions.id = userId;
-            res.redirect("/homeGallery");
-          }
-          else {
-            console.log("username or password is incorrect");
-            res.redirect("/login");
-          }
-        })
-      }
-      else { // username is typed incorrect or does not exist
-        res.redirect("/login");
-      }
-    });
+    let selectSQL = "SELECT id,username, password FROM users WHERE username= ?;";
+    let userId;
+    db.execute(selectSQL, [username])
+      .then(([results, fields]) => {
+        userId = results[0].id;
+        if (results && results.length == 1) {
+          let hashedPW = results[0].password;
+          return bcrypt.compare(password, hashedPW);
+        }
+        else {
+          throw new UserError(
+            "Log in credentials does not match any users in our system",
+            "/login",
+            200
+          );
+        }
+      })
+      .then((matched) => {
+        if (matched) {
+          successPrint(`${username} has successfully logged in`);
+          req.session.username = username;
+          req.session.userId = userId;
+          res.locals.logged = true;
+          res.render("homeGallery");
+        }
+        else {
+          throw new UserError(
+            "log in credentials does not match any users in our system",
+            "/login",
+            200
+          );
+        }
+      })
+      .catch(err => {
+        errorPrint("user login failed");
+        if (err instanceof UserError) {
+          errorPrint(err.getMessage());
+          res.status(err.getStatus());
+          res.redirect(err.getRedirectURL());
+        }
+        else {
+          next(err);
+        }
+      })
   }
-
 })
 module.exports = router;
+

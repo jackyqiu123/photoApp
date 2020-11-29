@@ -10,5 +10,6 @@ const pool = mysql.createPool({
     debug: false
 
 });
+const promisePool = pool.promise();
 
-module.exports = pool;
+module.exports = promisePool;

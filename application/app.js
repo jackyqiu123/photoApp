@@ -10,8 +10,8 @@ var usersRouter = require('./routes/users');
 var errorPrint = require("./helpers/debug/debugprinters").errorPrint;
 var requestPrint = require("./helpers/debug/debugprinters").requestPrint;
 
-// var sessions = require("express-session");
-// var mysqlSession = require("express-mysql-session")(sessions);
+var sessions = require("express-session");
+var mysqlSession = require("express-mysql-session")(sessions);
 
 
 var app = express();
@@ -29,19 +29,19 @@ app.engine(
 
     })
 );
-// var mysqlSessionStore = new mysqlSession(
-//     {
-//         /* using default options*/
-//     },
-//     require("./config/database")
-// );
-// app.use(sessions({
-//     key: "csid",
-//     secret: "this is a secret from csc317",
-//     store: mysqlSessionStore,
-//     resave: false,
-//     saveUnititialized: false
-// }));
+var mysqlSessionStore = new mysqlSession(
+    {
+        /* using default options*/
+    },
+    require("./config/database")
+);
+app.use(sessions({
+    key: "csid",
+    secret: "this is a secret from csc317",
+    store: mysqlSessionStore,
+    resave: false,
+    saveUnititialized: false
+}));
 
 
 app.set("view engine", "hbs");
