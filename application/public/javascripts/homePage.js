@@ -5,7 +5,7 @@ let homePics = document.getElementById("grid-container");
 let count = document.getElementById("count");
 let counter = 0;
 async function fetchPhotos() {
-
+    try{
     const response = await fetch('https://jsonplaceholder.typicode.com/albums/2/photos');
     const data = await response.json();
     data.forEach(picture => {
@@ -23,12 +23,15 @@ async function fetchPhotos() {
         counter++;
     })
     count.innerText = `Number of Pictures: ${counter}`;
+    }catch(e){
+        // console.log(e);
+    }
+    
 }
 function remove(event) {
     console.log(event);
     event.path[1].classList.add("fade");
     setTimeout(function () { homePics.removeChild(event.path[1]); }, 800);
-    //homePics.removeChild(event.path[1]);
     count.innerText = `Number of Pictures: ${--counter}`;
 }
 fetchPhotos();

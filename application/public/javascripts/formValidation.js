@@ -11,45 +11,47 @@ function userNameValidation() {
 
     let regex1 = /^[a-zA-Z]/;
     let regex2 = /^(?=.*\d)(|.*[a-z])(|.*[A-Z])[0-9+a-zA-Z]{3,}$/;
-
-    userName.addEventListener("focus", () => {
-        if (userName.value == "") {
-            isError = true;
-            guide.innerText = errorMessage1 + "\n" + errorMessage2;
-        }
-
-        else if (!regex1.test(userName.value) || !regex2.test(userName.value)) {
-            isError = true;
-            if (!regex1.test(userName.value)) guide.innerText = errorMessage1
-            else guide.innerText = errorMessage2;
-
-        }
-
-        else {
-            isError = false;
-            guide.innerText = "";
-
-        }
-        userName.addEventListener("input", () => {
+    if(userName){
+        userName.addEventListener("focus", () => {
             if (userName.value == "") {
                 isError = true;
                 guide.innerText = errorMessage1 + "\n" + errorMessage2;
-
             }
-
+    
             else if (!regex1.test(userName.value) || !regex2.test(userName.value)) {
                 isError = true;
-                if (!regex1.test(userName.value)) guide.innerText = errorMessage1;
+                if (!regex1.test(userName.value)) guide.innerText = errorMessage1
                 else guide.innerText = errorMessage2;
-
+    
             }
-
+    
             else {
                 isError = false;
                 guide.innerText = "";
+    
             }
+            userName.addEventListener("input", () => {
+                if (userName.value == "") {
+                    isError = true;
+                    guide.innerText = errorMessage1 + "\n" + errorMessage2;
+    
+                }
+    
+                else if (!regex1.test(userName.value) || !regex2.test(userName.value)) {
+                    isError = true;
+                    if (!regex1.test(userName.value)) guide.innerText = errorMessage1;
+                    else guide.innerText = errorMessage2;
+    
+                }
+    
+                else {
+                    isError = false;
+                    guide.innerText = "";
+                }
+            });
         });
-    });
+    }
+    
 }
 function validSubmit() {
     let error1 = "CHECK USERNAME(One or more of the following):\n" + errorMessage1 + "\n" + errorMessage2;
@@ -75,22 +77,13 @@ function passwordValidation() {
     + "following special characters(/*-+!@#$^&*)."
 
     let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    password.addEventListener("focus", () => {
-        if (password.value == "") {
-            isError2 = true;
-            guide.innerText = errorMessage3;
-        }
-        else if (!regex.test(password.value)) {
-            isError2 = true;
-            guide.innerText = errorMessage3;
-        }
-        else {
-            isError2 = false;
-            guide.innerText = "";
-        }
-
-        password.addEventListener("input", () => {
-            if (!regex.test(password.value)) {
+    if(password){
+        password.addEventListener("focus", () => {
+            if (password.value == "") {
+                isError2 = true;
+                guide.innerText = errorMessage3;
+            }
+            else if (!regex.test(password.value)) {
                 isError2 = true;
                 guide.innerText = errorMessage3;
             }
@@ -98,8 +91,20 @@ function passwordValidation() {
                 isError2 = false;
                 guide.innerText = "";
             }
-        })
-    });
+    
+            password.addEventListener("input", () => {
+                if (!regex.test(password.value)) {
+                    isError2 = true;
+                    guide.innerText = errorMessage3;
+                }
+                else {
+                    isError2 = false;
+                    guide.innerText = "";
+                }
+            })
+        });
+    }
+    
 }
 
 userNameValidation();

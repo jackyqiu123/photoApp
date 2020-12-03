@@ -98,7 +98,7 @@ router.post('/login', (req, res, next) => {
           req.session.username = username;
           req.session.userId = userId;
           res.locals.logged = true;
-          res.render("homeGallery");
+          res.redirect("/homeGallery");
         }
         else {
           throw new UserError(
@@ -120,6 +120,22 @@ router.post('/login', (req, res, next) => {
         }
       })
   }
-})
+});
+
+router.post('/logout', (req, res, next) => {
+  req.session.destroy((err) => {
+    if (err) {
+      errorPrint("session could not be destroyed");
+      next(err);
+    }
+    else {
+      res.locals.logged = false;
+      successPrint("session was destroyed");
+      res.clearCookie("csid");
+      res.json({ status: "OK", message: "user is logged out" });
+    }
+  })
+});
+
 module.exports = router;
 

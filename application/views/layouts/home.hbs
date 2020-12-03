@@ -12,7 +12,25 @@
 </head>
 
 <body>
-    {{{body}}}
+    <div>
+        {{{body}}}
+    </div>
+    {{#if logged}}
+    <script>
+        let logOut = document.getElementById("logOut");
+        if (logOut) {
+            logOut.onclick = (event) => {
+                fetch("users/logout", {
+                    method: "POST"
+                })
+                .then(data => {
+                    location.replace("/login")
+                })
+            }
+        }
+    </script>
+    {{/if}}
+
 </body>
 
 </html>

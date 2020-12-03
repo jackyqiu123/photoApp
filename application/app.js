@@ -16,7 +16,7 @@ var mysqlSession = require("express-mysql-session")(sessions);
 
 var app = express();
 
-app.engine(
+app.engine( // allows all the hbs files to be combined in one file through home.hbs
     "hbs",
     handlebars({
         layoutsDir: path.join(__dirname, "views/layouts"),
@@ -44,6 +44,7 @@ app.use(sessions({
 }));
 
 
+
 app.set("view engine", "hbs");
 
 app.use(logger('dev'));
@@ -53,6 +54,12 @@ app.use(cookieParser());
 app.use("/public", express.static(path.join(__dirname, 'public')));
 app.use((req, res, next) => {
     requestPrint(req.url);
+    next();
+});
+app.use((req, res,next)=>{
+    if(req.session.username){
+        res.locals.logged = true;
+    }
     next();
 });
 

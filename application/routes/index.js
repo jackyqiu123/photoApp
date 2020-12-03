@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const db = require('../config/database');
 
+
 /* GET home page. */
 router.get('/home', function (req, res, next) {
   res.render("home");
@@ -10,8 +11,12 @@ router.get('/', function (req, res, next) {
   res.render("register");
 });
 
-router.get("/homeGallery", (req, res, next) => {
-  res.render("homeGallery", { title: "home Gallery" });
+router.get("/homeGallery",(req, res, next) => {
+  if(res.locals.logged)
+    res.render("homeGallery", { title: "home Gallery" });
+    else{
+      res.send("You need to login in first");
+    }
 });
 
 router.get("/imagePost", (req, res, next) => {
