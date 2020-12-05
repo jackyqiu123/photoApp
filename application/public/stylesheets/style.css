@@ -72,8 +72,8 @@ resize: none;
   display:grid;
   grid-template-columns:repeat(4,1fr);
   margin-left:5%;
-
 }
+
 .grid-pic img{
   width:70%;
 
@@ -139,3 +139,24 @@ font-size: 1.2em;
   font-size:1.5em;
   white-space:nowrap;
 }
+#flashMessage{
+  text-align:center;
+}
+#errorMessage{
+  color: red;
+}
+#successMessage{
+  color:green;
+}
+.flashMsg{
+  animation: hideMsg 3s forwards;
+ 
+ }
+ @keyframes hideMsg{
+   from {
+    visibility: visible;
+   }
+   to{  
+      visibility: hidden;
+   }
+ }

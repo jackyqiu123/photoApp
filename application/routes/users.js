@@ -5,10 +5,10 @@ const { errorPrint, successPrint } = require('../helpers/debug/debugprinters');
 const UserError = require('../helpers/error/UserError');
 var bcrypt = require("bcrypt");
 
-/* GET users listing. */
-router.get('/', function (req, res, next) {
-  res.send('respond with a resource');
-});
+// /* GET users listing. */
+// router.get('/', function (req, res, next) {
+//   res.send('respond with a resource');
+// });
 
 router.post('/register', (req, res, next) => {
   let username = req.body.username;
@@ -43,6 +43,7 @@ router.post('/register', (req, res, next) => {
             db.execute(insertNewUser, [username, email, hash]);
           })
           successPrint("user was created");
+          req.flash("success", "User account has been made!");
           res.redirect("/login");
         }
         else {
@@ -57,6 +58,7 @@ router.post('/register', (req, res, next) => {
         errorPrint("user could not be made", err);
         if (err instanceof UserError) {
           errorPrint(err.getMessage());
+          req.flash("error",err.getMessage());
           res.status(err.getStatus());
           res.redirect(err.getRedirectURL());
         }
@@ -98,6 +100,7 @@ router.post('/login', (req, res, next) => {
           req.session.username = username;
           req.session.userId = userId;
           res.locals.logged = true;
+          req.flash("success", "You have successfully logged in");
           res.redirect("/homeGallery");
         }
         else {
@@ -113,6 +116,7 @@ router.post('/login', (req, res, next) => {
         if (err instanceof UserError) {
           errorPrint(err.getMessage());
           res.status(err.getStatus());
+          req.flash("error",err.getMessage());
           res.redirect(err.getRedirectURL());
         }
         else {

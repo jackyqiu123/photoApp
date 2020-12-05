@@ -13,6 +13,7 @@ var requestPrint = require("./helpers/debug/debugprinters").requestPrint;
 var sessions = require("express-session");
 var mysqlSession = require("express-mysql-session")(sessions);
 
+var flash = require("express-flash");
 
 var app = express();
 
@@ -43,7 +44,7 @@ app.use(sessions({
     saveUnititialized: false
 }));
 
-
+app.use(flash());
 
 app.set("view engine", "hbs");
 
@@ -57,6 +58,7 @@ app.use((req, res, next) => {
     next();
 });
 app.use((req, res,next)=>{
+    console.log(req.session);
     if(req.session.username){
         res.locals.logged = true;
     }
