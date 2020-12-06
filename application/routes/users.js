@@ -81,17 +81,17 @@ router.post('/login', (req, res, next) => {
     let userId;
     db.execute(selectSQL, [username])
       .then(([results, fields]) => {
-        userId = results[0].id;
-        if (results && results.length == 1) {
-          let hashedPW = results[0].password;
-          return bcrypt.compare(password, hashedPW);
-        }
-        else {
+        if(results.length == 0){
           throw new UserError(
             "Log in credentials does not match any users in our system",
             "/login",
             200
           );
+        }
+        userId = results[0].id;
+        if (results && results.length == 1) {
+          let hashedPW = results[0].password;
+          return bcrypt.compare(password, hashedPW);
         }
       })
       .then((matched) => {
@@ -101,6 +101,7 @@ router.post('/login', (req, res, next) => {
           req.session.userId = userId;
           res.locals.logged = true;
           req.flash("success", "You have successfully logged in");
+          req.flash("username",username);
           res.redirect("/homeGallery");
         }
         else {

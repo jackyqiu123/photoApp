@@ -7,18 +7,22 @@
     <link rel="stylesheet" href="/public/stylesheets/style.css">
     <script type="text/javascript" defer src="/public/javascripts/formValidation.js"></script>
     <script type="text/javascript" defer src="/public/javascripts/homePage.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
 
     <title>{{title}}</title>
 </head>
 
 <body>
     <div>
+    {{#if messages}}
        {{> flashMessage}}
+    {{/if}}
        {{{body}}}
     </div>
     {{#if logged}}
     <script>
         let logOut = document.getElementById("logOut");
+        let username = document.getElementById("user");
         if (logOut) {
             logOut.onclick = (event) => {
                 fetch("users/logout", {
