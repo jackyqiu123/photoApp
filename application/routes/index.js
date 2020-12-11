@@ -24,7 +24,11 @@ router.get("/imagePost", (req, res, next) => {
 });
 
 router.get("/postImage", (req, res, next) => {
-  res.render("postImage", { title: "postImage" });
+  if(res.locals.logged)
+    res.render("postImage", { title: "Post Image" });
+    else{
+      res.send("You need to login in first to post");
+    }
 });
 router.get("/register", (req, res, next) => {
   res.render("register", { title: "register" });
@@ -33,10 +37,10 @@ router.get("/login", (req, res, next) => {
   res.render("login", { title: "login" });
 });
 
-router.get("/getAllUsers", (req, res, next) => {
-  db.query('SELECT * FROM users', (err, results, fields) => {
-    console.log(results);
-    res.send(results);
-  });
-});
+// router.get("/getAllUsers", (req, res, next) => {
+//   db.query('SELECT * FROM users', (err, results, fields) => {
+//     console.log(results);
+//     res.send(results);
+//   });
+// });
 module.exports = router;

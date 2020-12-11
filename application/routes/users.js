@@ -72,7 +72,6 @@ router.post('/register', (req, res, next) => {
 router.post('/login', (req, res, next) => {
   let username = req.body.username;
   let password = req.body.password;
-
   if (username == "" || password == "") {
     res.redirect('/login');
   }
@@ -101,7 +100,6 @@ router.post('/login', (req, res, next) => {
           req.session.userId = userId;
           res.locals.logged = true;
           req.flash("success", "You have successfully logged in");
-          req.flash("username",username);
           res.redirect("/homeGallery");
         }
         else {

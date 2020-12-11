@@ -2,21 +2,21 @@
     <h1>Post Your Image</h1>
 </header>
 
-<form action="submit">
+<form action="/posts/postImage" id = "postImage" method = "POST" enctype= "multipart/form-data">
     <label for="title">Title of Post:</label>
-    <input type="text" name="title">
+    <input type="text" name="title" required>
     <br />
 
     <label for="description">Description:</label>
-    <textarea id="descript-input" name="description" cols="30" rows="10"></textarea>
+    <textarea id="descript-input" name="description" cols="30" rows="10"></textarea required>
 
 
     <label for="image">Choose Image:</label>
-    <input type="file" name="image">
+    <input type="file" name="uploadImage" required>
 
 
     <a href="#"><label for="agreement">Must Agree to Acceptable Use Policy for uploading images</label></a>
-    <input type="checkbox" name="agreement">
+    <input type="checkbox" name="agreement" required>
 
 
     <input type="submit" value="Upload Image">

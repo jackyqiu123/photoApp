@@ -104,7 +104,6 @@ function passwordValidation() {
             })
         });
     }
-    
 }
 
 userNameValidation();
