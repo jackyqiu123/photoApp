@@ -24,7 +24,7 @@ app.engine( // allows all the hbs files to be combined in one file through home.
         layoutsDir: path.join(__dirname, "views/layouts"),
         partialsDir: path.join(__dirname, "views/partials"),
         extname: ".hbs",
-        defaultLayout: "home",
+        defaultLayout: "index",
         helpers: {
             // if need helpers, write them here.
         }

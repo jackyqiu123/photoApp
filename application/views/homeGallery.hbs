@@ -4,14 +4,20 @@
 <div id="nav">
     <h3 id="logo">PhotoApp</h3>
     <div id="search">
+        <h3>{{username}}</h3>
         <input id="searchText" name="search" type="text">
         <button id="searchBtn">Search</button>
     </div>
     <div id="rightNav">
-        <h3 id= "user"></h3>
-        <a href="/postImage">Post</a>
+        <a href="/postImage" id = "post">Post</a>
         <a href="" id="logOut">Log Out</a>
     </div>
+</div>
+
+<div id = "grid-container">
+    {{#each results}}
+        {{> card this}}
+    {{/each}}
 </div>
 <h4 style="text-align:center; font-size:2em;" id="count"></h4>
 <div id="grid-container">

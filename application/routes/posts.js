@@ -19,8 +19,8 @@ var storage = multer.diskStorage({
 });
 var uploader = multer({storage: storage});
 
-router.post("/postImage", uploader.single("uploadImage"),(req, res,next)=>{
-   let fileUploaded = req.file.path;
+router.post("/postImage", uploader.single("uploadImage"),(req, res, next)=>{
+   let fileUploaded = req.file.path; // public/images/uploads/filename
    let fileAsThumbnail = `thumbnail-${req.file.filename}`;
    let destinationOfThumbnail = req.file.destination + "/" + fileAsThumbnail;
    let title = req.body.title;
@@ -33,13 +33,13 @@ router.post("/postImage", uploader.single("uploadImage"),(req, res,next)=>{
     *Bind parameters cannot be undefined
     */
    sharp(fileUploaded)
-   .resize(200)
-   .toFile(destinationOfThumbnail)
+   .resize(200) // resize the image file with width and height being 200px
+   .toFile(destinationOfThumbnail) // adds a thumbnail version of the original image file to the uploads folder
    .then(()=>{
        let baseSQL = "INSERT INTO posts (title, description,photopath,thumbnail,created,fk_userid) VALUE(?,?,?,?,now(),?);";
        return db.execute(baseSQL, [title,description,fileUploaded,destinationOfThumbnail,fk_userId]);
    })
-   .then(([results, fileds])=>{
+   .then(([results, fields])=>{
        if(results && results.affectedRows){
            req.flash("success", "Your Post was created successfully!");
            res.redirect("/homeGallery");
@@ -58,6 +58,46 @@ router.post("/postImage", uploader.single("uploadImage"),(req, res,next)=>{
            next(err);
        }
    })
+})
+// localhost:3000/posts/search?search=value
+router.get("/search",(req,res,next)=>{
+    let searchValue = req.query.search;
+    if(!searchValue){
+        res.send({
+            resultsStatus:"info",
+            message:"NO search term given",
+            results:[]
+            
+        });
+    }
+    else{
+        let baseSQL = "SELECT id, title, description, thumbnail, concat_ws(' ', title, description)\
+        AS haystack FROM posts HAVING haystack like ?;";
+        let sqlReadySearchTerm = "%" + searchValue+ "%";
+
+        db.execute(baseSQL,[sqlReadySearchTerm])
+        .then(([results,fields])=>{
+            if(results && results.length){
+                res.send({
+                    resultsStatus:"info",
+                    message:`${results.length} results found`,
+                    results: results
+                })
+            }
+            else{
+                db.query("SELECT id, title, description, thumbnail, created FROM posts \
+                ORDER BY created DESC Limit 100",[])
+                .then(([results,fields])=>{
+                    res.send({
+                        resultsStatus:"info",
+                        message:"No Results were found for your search but nothing changes",
+                        results:results
+                    })
+                })
+            }
+        })
+        .catch(err => next(err));
+    }
 })
 
 module.exports = router;

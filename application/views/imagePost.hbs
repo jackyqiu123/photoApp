@@ -1,11 +1,14 @@
 <header>
-    <h1>Image Post</h1>
+    <h1>{{title}}</h1>
 </header>
 
 <section id="post">
-    <h2 id="post-title">Post Title:<span id="post-title-value"></span></h2>
-    <h3 id="post-author">Post Author:<span id="post-author-value"></span></h3>
-    <h4 id="time-posted">Time Posted:<span id="time-posted-value"></span></h4>
-    <img id="image" src="" alt="IMAGE">
+    <h2 id="post-title">Post Title:{{currentPost.title}}</h2>
+    <img id="image" src="/{{currentPost.photopath}}" alt="IMAGE">
+    <p id = "post-desc">{{currentPost.description}}</p>
+    <h3 id="post-author">Post Author:{{currentPost.username}}</h3>
+    <h4 id="time-posted">Time Posted:{{currentPost.created}}</h4>
+    <a href="/homeGallery">Go Back</a>
+    
 
 </section>

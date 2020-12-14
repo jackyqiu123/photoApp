@@ -52,6 +52,9 @@ a label{
 width:100%;
 resize: none;
 }
+#logo{
+  cursor: pointer;
+}
 
 #post{
   text-align: center;
@@ -74,20 +77,9 @@ resize: none;
   margin-left:5%;
 }
 
-.grid-pic img{
-  width:70%;
+.card img{
+ 
 
-}
-.fade{
- animation: fadeOut 1s;
-}
-@keyframes fadeOut{
-  from {
-      opacity:1;
-  }
-  to{
-      opacity:0;
-  }
 }
 
 .signInOption{
@@ -108,10 +100,16 @@ font-size: 1.2em;
 #nav{
   display:flex;
   justify-content:space-around;
+  border: 3px solid black;
+  width:85%;
+  margin-left:5%;
+  margin-bottom:2%;
 }
 #rightNav{
+  position:relative;
   display:flex;
-
+  bottom:8px;
+  
 }
 #search{
   display:flex;
@@ -134,6 +132,13 @@ font-size: 1.2em;
   font-size: 1.5em;
   white-space: nowrap;
 }
+
+#post{
+  margin-top:23px;
+  margin-left:20px;
+  font-size: 1.5em;
+  white-space: nowrap;
+}
 #user{
   font-size:1.5em;
   white-space:nowrap;
@@ -147,7 +152,7 @@ font-size: 1.2em;
 #successMessage{
   color:green;
 }
-.flashMsg{
+/* .flashMsg{
   animation: hideMsg 5s forwards;
  
  }
@@ -158,4 +163,4 @@ font-size: 1.2em;
    to{  
       visibility: hidden;
    }
- }
+ } */

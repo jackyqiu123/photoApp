@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const db = require('../config/database');
 
+var getRecentPosts = require("../middleware/postsmiddleware").getRecentPosts;
 
 /* GET home page. */
 router.get('/home', function (req, res, next) {
@@ -11,16 +12,16 @@ router.get('/', function (req, res, next) {
   res.render("register");
 });
 
-router.get("/homeGallery",(req, res, next) => {
+router.get("/homeGallery",getRecentPosts, (req, res, next) => {
   if(res.locals.logged)
-    res.render("homeGallery", { title: "home Gallery" });
+    res.render("homeGallery", { title: "home Gallery"});
     else{
       res.send("You need to login in first");
     }
 });
 
 router.get("/imagePost", (req, res, next) => {
-  res.render("imagePost", { title: "imagePost" });
+  res.render("imagePost", { title: "Image Post" });
 });
 
 router.get("/postImage", (req, res, next) => {
@@ -37,10 +38,23 @@ router.get("/login", (req, res, next) => {
   res.render("login", { title: "login" });
 });
 
-// router.get("/getAllUsers", (req, res, next) => {
-//   db.query('SELECT * FROM users', (err, results, fields) => {
-//     console.log(results);
-//     res.send(results);
-//   });
-// });
+router.get("/getPost/:id(\\d+)",(req, res,next)=>{
+  let baseSQL = "SELECT u.username, p.title, p.description, p.photopath, p.created\
+  FROM users u\
+  JOIN posts p\
+  ON u.id = fk_userid\
+  where p.id = ?;";
+  let postId = req.params.id;
+  db.execute(baseSQL, [postId])
+  .then(([results, fields])=>{
+    if(results && results.length){
+      let post = results[0];
+      res.render("imagePost",{currentPost:post});
+    }
+    else{
+      req.flash("error","This is not the post you are looking for!");
+      res.redirect("/homeGallery");
+    }
+  })
+})
 module.exports = router;
