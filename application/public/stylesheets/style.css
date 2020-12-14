@@ -144,7 +144,9 @@ font-size: 1.2em;
   white-space:nowrap;
 }
 #flashMessage{
+  z-index:9999;
   text-align:center;
+  
 }
 #errorMessage{
   color: red;
@@ -152,7 +154,7 @@ font-size: 1.2em;
 #successMessage{
   color:green;
 }
-/* .flashMsg{
+.flashMsg{
   animation: hideMsg 5s forwards;
  
  }
@@ -163,4 +165,4 @@ font-size: 1.2em;
    to{  
       visibility: hidden;
    }
- } */
+ }

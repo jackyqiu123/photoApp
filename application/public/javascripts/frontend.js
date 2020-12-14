@@ -7,19 +7,19 @@ let imagesContent = document.getElementById("grid-container");
 let flashMessage = document.getElementById("flashMessage");
 let logo = document.getElementById("logo");
 
-function setFlashMessageFadeOut(flashMessageElement){
-    setTimeout(()=>{
-        let currentOpacity = 1.0;
-        let timer = setInterval(()=>{
-            if(currentOpacity < 0.05){
-                clearInterval(timer);
-                flashMessageElement.remove();
-            }
-            currentOpacity = currentOpacity - .05;
-            flashMessageElement.style.opacity = currentOpacity;
-        }, 50);
-    }, 4000);
-};
+// function setFlashMessageFadeOut(flashMessageElement){
+//     setTimeout(()=>{
+//         let currentOpacity = 1.0;
+//         let timer = setInterval(()=>{
+//             if(currentOpacity < 0.05){
+//                 clearInterval(timer);
+//                 flashMessageElement.remove();
+//             }
+//             currentOpacity = currentOpacity - .05;
+//             flashMessageElement.style.opacity = currentOpacity;
+//         }, 50);
+//     }, 4000);
+// };
 
 logo.addEventListener("click",()=>{
     location.replace("/homeGallery");
@@ -36,17 +36,21 @@ return `<div class = "card">
 </div>`
 }
 
-function addFlashFromFrontEnd(message){
-    let flashMessageDiv = document.createElement("div");
-    let innerFlashDiv = document.createElement("div");
-    let innerTextNode = document.createTextNode(message);
-    innerFlashDiv.appendChild(innerTextNode);
-    innerFlashDiv.setAttribute("class","flashMsg");
-    innerFlashDiv.setAttribute("id", "successMessage");
-    flashMessageDiv.appendChild(innerFlashDiv);
-    flashMessageDiv.setAttribute("id", "flashMessage");
-    document.getElementsByTagName("body")[0].appendChild(flashMessageDiv);
-    setFlashMessageFadeOut(flashMessageDiv);
+// function addFlashFromFrontEnd(message){
+//     let flashMessageDiv = document.createElement("div");
+//     let innerFlashDiv = document.createElement("div");
+//     let innerTextNode = document.createTextNode(message);
+//     innerFlashDiv.appendChild(innerTextNode);
+//     innerFlashDiv.setAttribute("class","flashMsg");
+//     innerFlashDiv.setAttribute("id", "successMessage");
+//     flashMessageDiv.appendChild(innerFlashDiv);
+//     flashMessageDiv.setAttribute("id", "flashMessage");
+//     document.getElementsByTagName("body")[0].appendChild(flashMessageDiv);
+//     setFlashMessageFadeOut(flashMessageDiv);
+// }
+function addsearchMessage(message){
+    let searchMessage = `<div class = "flashMsg">${message}</div>`;
+    flashMessage.innerHTML = searchMessage;
 }
 if(searchText){
     searchBtn.addEventListener("click",()=>{
@@ -63,12 +67,9 @@ if(searchText){
                 })
                 imagesContent.innerHTML = newImageContent;
                 if(data.message){
-                    addFlashFromFrontEnd(data.message);
+                    addsearchMessage(data.message);
                 }
             })
         }
     })
-}
-if(flashMessage){
-    setFlashMessageFadeOut(flashMessage);
 }
