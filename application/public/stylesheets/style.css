@@ -57,7 +57,7 @@ resize: none;
 }
 
 #post{
-  text-align: center;
+
   margin:6% auto;
 }
 #image{
@@ -132,19 +132,35 @@ font-size: 1.2em;
   font-size: 1.5em;
   white-space: nowrap;
 }
-
+#imagePostPage{
+text-align:center;
+}
 #post{
   margin-top:23px;
   margin-left:20px;
   font-size: 1.5em;
   white-space: nowrap;
 }
+#image{
+  width:500px;
+}
+#comments{
+  margin:auto;
+  background-color:white;
+  border-style:solid;
+  border-color:black;
+  width:750px;
+  height:500px;
+}
+#comments p{
+  text-align:left;
+}
+
 #user{
   font-size:1.5em;
   white-space:nowrap;
 }
 #flashMessage{
-  z-index:9999;
   text-align:center;
   
 }
@@ -166,3 +182,6 @@ font-size: 1.2em;
       visibility: hidden;
    }
  }
+.goBack{
+  font-size:1.5em;
+}

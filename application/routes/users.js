@@ -66,6 +66,7 @@ router.post('/register', (req, res, next) => {
           next(err);
         }
       });
+
   }
 });
 

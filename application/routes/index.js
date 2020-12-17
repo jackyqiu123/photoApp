@@ -21,7 +21,10 @@ router.get("/homeGallery",getRecentPosts, (req, res, next) => {
 });
 
 router.get("/imagePost", (req, res, next) => {
-  res.render("imagePost", { title: "Image Post" });
+  if(res.locals.logged)
+    res.render("imagePost", { title: "Image Post" });
+  else
+  res.send("You need to login in first");
 });
 
 router.get("/postImage", (req, res, next) => {
@@ -39,7 +42,7 @@ router.get("/login", (req, res, next) => {
 });
 
 router.get("/getPost/:id(\\d+)",(req, res,next)=>{
-  let baseSQL = "SELECT u.username, p.title, p.description, p.photopath, p.created\
+  let baseSQL = "SELECT p.id,u.username, p.title, p.description, p.photopath, p.created\
   FROM users u\
   JOIN posts p\
   ON u.id = fk_userid\
@@ -56,5 +59,9 @@ router.get("/getPost/:id(\\d+)",(req, res,next)=>{
       res.redirect("/homeGallery");
     }
   })
+})
+router.post("/getPost/:id(\\d+)", (req, res, next)=>{
+
+  res.send("comment button clicked");
 })
 module.exports = router;

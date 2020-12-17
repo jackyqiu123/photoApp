@@ -2,13 +2,27 @@
     <h1>{{title}}</h1>
 </header>
 
-<section id="post">
-    <h2 id="post-title">Post Title:{{currentPost.title}}</h2>
-    <img id="image" src="/{{currentPost.photopath}}" alt="IMAGE">
-    <p id = "post-desc">{{currentPost.description}}</p>
-    <h3 id="post-author">Post Author:{{currentPost.username}}</h3>
-    <h4 id="time-posted">Time Posted:{{currentPost.created}}</h4>
-    <a href="/homeGallery">Go Back</a>
-    
 
-</section>
+
+<div id = "imagePostPage">
+    <div id="post">
+        <h2 id="post-title">Post Title:{{currentPost.title}}</h2>
+        <img id="image" src="/{{currentPost.photopath}}" alt="IMAGE">
+        <p id = "post-desc">{{currentPost.description}}</p>
+        <p id="post-author">Post Author:{{currentPost.username}}</p>
+        <p id="time-posted">Time Posted:{{currentPost.created}}</p>   
+    </div>
+
+    <div id = "commentsArea">
+        <div id = "comments">
+            
+        </div>
+
+        <form id = "commentSubmission" action="/getPost/{{currentPost.id}}" method = "POST">
+            <input id = "commentInput" type="text">
+            <button id = "commentBtn">Comment</button>
+        </form>
+      
+    </div>
+    <a class = "goBack"href="/homeGallery">Go Back</a>
+</div>
