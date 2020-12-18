@@ -24,6 +24,7 @@ router.post("/postImage", uploader.single("uploadImage"),(req, res, next)=>{
    let fileAsThumbnail = `thumbnail-${req.file.filename}`;
    let destinationOfThumbnail = req.file.destination + "/" + fileAsThumbnail;
    let title = req.body.title;
+   let agreement = req.body.agreement;
    let description = req.body.description;
    let fk_userId = req.session.userId; 
 
@@ -43,6 +44,9 @@ router.post("/postImage", uploader.single("uploadImage"),(req, res, next)=>{
        if(results && results.affectedRows){
            req.flash("success", "Your Post was created successfully!");
            res.redirect("/homeGallery");
+       }
+       else if(!title || !description || !fileUploaded || !agreement){
+            throw new PostError("Bind parameters cannot be underfined", "/postImage", 200);
        }
        else{
            throw new PostError("Post could not be created", "/postImage", 200);
@@ -80,7 +84,7 @@ router.get("/search",(req,res,next)=>{
             if(results && results.length){
                 res.send({
                     resultsStatus:"info",
-                    message:`${results.length} results found`,
+                    message:`${results.length} result(s) found`,
                     results: results
                 })
             }

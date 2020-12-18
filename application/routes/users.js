@@ -97,8 +97,8 @@ router.post('/login', (req, res, next) => {
       .then((matched) => {
         if (matched) {
           successPrint(`${username} has successfully logged in`);
-          req.session.username = username;
-          req.session.userId = userId;
+          req.session.username = username; // records the user name when logged in
+          req.session.userId = userId; // records the user id when logged in
           res.locals.logged = true;
           req.flash("success", "You have successfully logged in");
           res.redirect("/homeGallery");

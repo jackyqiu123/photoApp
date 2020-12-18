@@ -6,6 +6,9 @@ let searchText = document.getElementById("searchText");
 let imagesContent = document.getElementById("grid-container");
 let flashMessage = document.getElementById("flashMessage");
 let logo = document.getElementById("logo");
+let commentBtn = document.getElementById("commentBtn");
+let comments = document.getElementById("comments");
+// let commentInput = document.getElementById("commentInput");
 
 logo.addEventListener("click",()=>{
     location.replace("/homeGallery");
@@ -47,3 +50,7 @@ if(searchText){
         }
     })
 }
+commentBtn.addEventListener("click",(e)=>{
+    e.preventDefault();
+    console.log("clicked");
+})
