@@ -10,13 +10,13 @@
         <img id="image" src="/{{currentPost.photopath}}" alt="IMAGE">
         <p id = "post-desc">{{currentPost.description}}</p>
         <p id="post-author">Post Author:{{currentPost.username}}</p>
-        <p id="time-posted">Time Posted:{{currentPost.created}}</p>   
+        <p>Time Posted:<span id="time-posted">{{currentPost.created}}</span></p>   
     </div>
 
     <div id = "commentsArea">
         <div id = "commentBox">
             {{#each results}}
-                <p>{{username}} : {{comment}} {{created}}</p>
+               {{> comment this}}
              {{/each}}
 
         </div>
@@ -29,3 +29,15 @@
     </div>
     <a class = "goBack"href="/homeGallery">Go Back</a>
 </div>
+<script>
+    let oldTime = document.getElementById("time-posted").innerText;
+    let newTime = new Date(oldTime).toLocaleString();
+    document.getElementById("time-posted").innerText = newTime;
+    document.addEventListener("DOMContentLoaded", (event)=>{
+        document.querySelectorAll("span[class=date-posted]").forEach((postedDate)=>{
+            let oldDate = postedDate.innerHTML;
+            let newDate = new Date(oldDate).toLocaleString();
+            postedDate.innerText = newDate;
+        });
+    });
+</script>
