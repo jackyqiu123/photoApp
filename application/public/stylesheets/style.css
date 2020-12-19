@@ -53,6 +53,7 @@ width:100%;
 resize: none;
 }
 #logo{
+  font-size:1.5em;
   cursor: pointer;
 }
 
@@ -100,7 +101,6 @@ font-size: 1.2em;
 #nav{
   display:flex;
   justify-content:space-around;
-  border: 3px solid black;
   width:85%;
   margin-left:5%;
   margin-bottom:2%;
@@ -190,4 +190,39 @@ text-align:center;
  }
 .goBack{
   font-size:1.5em;
+}
+/*-------------------SCREEN SIZE ADJUSTMENT-----------------------*/
+
+@media only screen and (max-width: 800px){
+  #grid-container{
+    height:100vh;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    margin-left:5%;
+  }
+  #searchBtn{
+    width:40%;
+    height:27px;
+  }
+  #logo{
+    font-size:1em;
+    cursor: pointer;
+    margin-right:3px;
+  }
+
+  #nav{
+    position:relative;
+    width:85%;
+    padding:2%;
+  }
+}
+
+@media only screen and (max-width: 500px){
+  #grid-container{
+    height:100vh;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    margin-left:5%;
+  }
+  
 }
